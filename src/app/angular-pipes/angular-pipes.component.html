@@ -1,0 +1,32 @@
+<div class="container">
+<div>
+    {{title}}
+</div>
+Select number of rows <input type="number" min="0" [max]="employees.length" [(ngModel)]="rows">
+    <table class="table table-bordered">
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Salary</td>
+        <td>Variable</td>
+        <td>Doj</td>
+        <td>Gender</td>
+        <td>City</td>
+        <td>Pan</td>
+        <td>Mobile</td>
+        <td>Is Married</td>
+    </tr>
+    <tr *ngFor="let e of employees|slice:0:rows">
+<td>{{e.id}}</td>
+<td>{{e.name}}</td>
+<td>{{e.salary|number:'9.2-2'}}</td>
+<td>{{e.variable}}</td>
+<td>{{e.doj|date:'dd/MM/yyyy'}}</td>
+<td>{{e.gender}}</td>
+<td>{{e.city}}</td>
+<td>{{e.pan|uppercase|slice:0:2}}XXXX{{e.pan|uppercase|slice:8:10}}</td>
+<td>{{e.mobile}}</td>
+<td>{{e.isMarried}}</td>
+    </tr>
+</table>
+</div>
