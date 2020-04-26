@@ -1,0 +1,31 @@
+<p>posts works!</p> 
+<hr/> 
+
+<div class="jumbotron"> 
+    <div> 
+        <h2> {{title}} </h2> 
+    </div> 
+    <div> 
+        <table class = "table table-hover table-striped table-responsive"> 
+            <thead> 
+                <tr>
+                    <th>USER ID</th> 
+                    <th>ID</th> 
+                    <th>TITLE</th> 
+                    <th>BODY</th> 
+                    <th>VIEW COMMENTS</th> 
+                </tr> 
+            </thead> 
+            <tbody>
+                <tr *ngFor = "let p of posts"> 
+                    <td>{{p.userId}}</td> 
+                    <td>{{p.id}}</td> 
+                    <td>{{p.title}}</td> 
+                    <td>{{p.body}}</td> 
+
+                    <td> <a  [routerLink] = "['/casestudy/comments']"   [queryParams] = "{'postId':p.id}" > <input type = "button"  value = "VIEW COMMENTS" class = "btn btn-success"> </a></td> 
+                </tr> 
+            </tbody> 
+        </table> 
+    </div> 
+</div> 

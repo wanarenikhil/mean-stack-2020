@@ -1,0 +1,30 @@
+<p>photos works!</p> 
+<hr/> 
+
+<div class="jumbotron"> 
+    <div> 
+        <h2> {{title}} </h2> 
+    </div> 
+    <div> 
+        <table class = "table table-hover table-striped table-responsive"> 
+            <thead> 
+                <tr>
+                    <th>ALBUM ID</th> 
+                    <th>ID</th> 
+                    <th>TITLE</th> 
+                    <th>URL</th> 
+                    <th>THUMBNAIL</th> 
+                </tr> 
+            </thead> 
+            <tbody>
+                <tr *ngFor = "let ph of photos"> 
+                    <td>{{ph.albumId}}</td> 
+                    <td>{{ph.id}}</td> 
+                    <td>{{ph.title}}</td> 
+                    <td>{{ph.url}}</td> 
+                    <td><img [src] = "ph.thumbnailUrl" width = "150" height = "150" alt = ""></td> 
+                </tr> 
+            </tbody> 
+        </table> 
+    </div> 
+</div> 

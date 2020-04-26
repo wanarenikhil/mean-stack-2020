@@ -1,0 +1,53 @@
+import { Component, OnInit } from '@angular/core';
+import { CommentsService } from '../services/comments.service';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-comments',
+  templateUrl: './comments.component.html',
+  styleUrls: ['./comments.component.css']
+})
+export class CommentsComponent implements OnInit {
+
+  title = "Comments Table"; 
+  comments: any; 
+  message = ""; 
+  postId = 0; 
+  
+  constructor(private cs: CommentsService, private route: ActivatedRoute) 
+  { 
+    console.log("===== CommentsComponent created ======"); 
+  } 
+
+  ngOnInit(): void 
+  { 
+    this.postId = this.route.snapshot.queryParams.postId; 
+
+    if(this.postId) 
+      this.getCommentsByPostId(); 
+    else 
+      this.getAllComments(); 
+    
+    console.log("===== CommentsComponent initialized ======" + this.postId); 
+  } 
+
+  ngOnDestroy(): void 
+  { 
+    console.log("===== CommentsComponent destroyed ======"); 
+  } 
+
+   getAllComments() 
+   { 
+     this.cs.getAllComments() 
+        .subscribe(response => this.comments = response, 
+                    error => this.message = error); 
+   } 
+
+   getCommentsByPostId() 
+   { 
+     this.cs.getCommentsByPostId(this.postId) 
+        .subscribe(response => this.comments = response, 
+                    error => this.message = error); 
+   } 
+
+}

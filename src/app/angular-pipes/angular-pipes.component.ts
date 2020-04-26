@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-angular-pipes',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AngularPipesComponent implements OnInit {
 
   title = 'Angular 9 Pipes';
-  rows = 3;
+
   employees = [
     {
       id: 12, name: 'Ram chinchole', salary: 2345500, variable: 0.15,
@@ -47,6 +48,27 @@ export class AngularPipesComponent implements OnInit {
 
   ];
 
+  searchText = '';
+
+  sortColumn = 'id';
+
+  descending = false;
+
+  sort(column) {
+    if (this.sortColumn == column) {
+      this.descending = !this.descending;
+    }
+    this.sortColumn = column;
+  }
+
+  rows = 3;
+
+
+  time = new Observable<string>((s: Subscriber<string>) => {
+    setInterval(() => {
+      s.next(new Date().toLocaleString());
+    }, 1000);
+  });
 
   constructor() {
 

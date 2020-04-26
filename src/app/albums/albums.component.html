@@ -1,0 +1,29 @@
+<p>albums works!</p> 
+<hr/> 
+
+<div class="jumbotron"> 
+    <div> 
+        <h2> {{title}} </h2> 
+    </div> 
+    <div> 
+        <table class = "table table-hover table-striped table-responsive"> 
+            <thead> 
+                <tr>
+                    <th>USER ID</th> 
+                    <th>ID</th> 
+                    <th>TITLE</th> 
+                    <th>VIEW PHOTOS</th> 
+                </tr> 
+            </thead> 
+            <tbody>
+                <tr *ngFor = "let a of albums"> 
+                    <td>{{a.userId}}</td> 
+                    <td>{{a.id}}</td> 
+                    <td>{{a.title}}</td> 
+
+                    <td> <a  [routerLink] = "['/casestudy/photos']"   [queryParams] = "{'albumId':a.id}" > <input type = "button"  value = "VIEW PHOTOS" class = "btn btn-success"> </a></td> 
+                </tr> 
+            </tbody> 
+        </table> 
+    </div> 
+</div> 

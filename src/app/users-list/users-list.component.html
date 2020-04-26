@@ -1,0 +1,11 @@
+<p>users-list works!</p> 
+<hr/> 
+
+<div class = "container"> 
+    <h2> {{title}} </h2> 
+    <div class = "list-group"> 
+        <a  [routerLink] = "['/casestudy/users', u.id]"  class = "list-group-item"   *ngFor = "let u of users"> 
+                {{u.username}} 
+        </a> 
+    </div> 
+</div>
