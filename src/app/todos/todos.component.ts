@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodosService } from '../services/todos.service';
 import { ActivatedRoute } from '@angular/router';
+import { PagerService } from '../services/pager.service';
 
 @Component({
   selector: 'app-todos',
@@ -14,7 +15,13 @@ export class TodosComponent implements OnInit {
   message = "";
   userId = 0;
 
-  constructor(private ts: TodosService, private route: ActivatedRoute) {
+  //pager object
+  pager: any = {};
+
+  // paged items
+  pagedItems: any[];
+
+  constructor(private ts: TodosService, private route: ActivatedRoute, private pagerService: PagerService) {
     console.log("===== TodosComponent created ======");
   }
 
@@ -33,14 +40,22 @@ export class TodosComponent implements OnInit {
 
   getTodosByUserId() {
     this.ts.getTodosByUserId(this.userId)
-      .subscribe(response => this.todos = response,
+      .subscribe(response =>  { this.todos = response, this.setPage(1) },
         error => this.message = error);
   }
 
   getAllTodos() {
     this.ts.getAllTodos()
-      .subscribe(response => this.todos = response,
+      .subscribe(response =>  { this.todos = response, this.setPage(1) },
         error => this.message = error);
+  }
+
+  setPage(page: number) {
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.todos.length, page);
+
+    // get current page of items
+    this.pagedItems = this.todos.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentsService } from '../services/comments.service';
 import { ActivatedRoute } from '@angular/router';
+import { PagerService } from '../services/pager.service';
 
 @Component({
   selector: 'app-comments',
@@ -14,7 +15,15 @@ export class CommentsComponent implements OnInit {
   message = ""; 
   postId = 0; 
   
-  constructor(private cs: CommentsService, private route: ActivatedRoute) 
+
+  //pager object
+  pager: any = {};
+
+  // paged items
+  pagedItems: any[];
+
+
+  constructor(private cs: CommentsService, private route: ActivatedRoute, private pagerService: PagerService) 
   { 
     console.log("===== CommentsComponent created ======"); 
   } 
@@ -39,15 +48,23 @@ export class CommentsComponent implements OnInit {
    getAllComments() 
    { 
      this.cs.getAllComments() 
-        .subscribe(response => this.comments = response, 
+        .subscribe(response => { this.comments = response, this.setPage(1) },
                     error => this.message = error); 
    } 
 
    getCommentsByPostId() 
    { 
      this.cs.getCommentsByPostId(this.postId) 
-        .subscribe(response => this.comments = response, 
+        .subscribe(response => { this.comments = response, this.setPage(1) },
                     error => this.message = error); 
    } 
+
+   setPage(page: number) {
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.comments.length, page);
+
+    // get current page of items
+    this.pagedItems = this.comments.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
 
 }

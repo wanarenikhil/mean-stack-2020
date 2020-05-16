@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotosService } from '../services/photos.service';
 import { ActivatedRoute } from '@angular/router';
+import { PagerService } from '../services/pager.service';
 
 @Component({
   selector: 'app-photos',
@@ -15,7 +16,13 @@ export class PhotosComponent implements OnInit
   message = ""; 
   albumId = 0;
   
-  constructor(private phs: PhotosService, private route: ActivatedRoute) 
+  //pager object
+  pager: any = {};
+
+  // paged items
+  pagedItems: any[];
+
+  constructor(private phs: PhotosService, private route: ActivatedRoute, private pagerService: PagerService) 
   { 
     console.log("===== PhotosComponent created ======"); 
   } 
@@ -37,7 +44,7 @@ else
 
   getPhotosByAlbumId(){
     this.phs.getPhotosByAlbumId(this.albumId).subscribe(
-      response => this.photos = response,
+      response => { this.photos = response, this.setPage(1) },
       error => this.message = error
     );
   }
@@ -45,8 +52,15 @@ else
    getAllPhotos() 
    { 
      this.phs.getAllPhotos() 
-        .subscribe(response => this.photos = response, 
+        .subscribe(response =>{ this.photos = response, this.setPage(1) },
                     error => this.message = error); 
    } 
 
+   setPage(page: number) {
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.photos.length, page);
+
+    // get current page of items
+    this.pagedItems = this.photos.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
 }

@@ -15,6 +15,12 @@ import { PhotosComponent } from './photos/photos.component';
 import { UsersComponent } from './users/users.component'; 
 import { UsersListComponent } from './users-list/users-list.component'; 
 import { UsersTableComponent } from './users-table/users-table.component'; 
+import { NestedComponent } from './nested/nested.component';
+import { CustomDirectivesComponent } from './custom-directives/custom-directives.component';
+import { ViewChildComponent } from './view-child/view-child.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ExpressComponent } from './express/express.component';
 // End 
 
 
@@ -45,6 +51,12 @@ const routes: Routes = [
       {path:'photos',component:PhotosComponent},        
     ] 
   }, 
+  {path:'nested',component:NestedComponent}, 
+  {path:'custom-directives',component:CustomDirectivesComponent}, 
+  {path:'view-child',component:ViewChildComponent}, 
+  {path:'login',component:LoginComponent}, 
+  {path:'register',component:RegisterComponent}, 
+  {path:'express',component:ExpressComponent}, 
 
   {path:'**',component:HomeComponent},
 ];
